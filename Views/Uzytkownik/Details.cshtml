@@ -1,0 +1,61 @@
+﻿@model GOT.Models.Turysta
+
+@{
+    ViewData["Title"] = "Szczegóły";
+}
+<div class="table-wrapper">
+    <h1>Szczegóły</h1>
+
+    <div>
+        <h4>Turysta</h4>
+        <hr />
+        <dl class="row">
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Name)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Name)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Surname)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Surname)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.PostCode)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.PostCode)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.City)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.City)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Street)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Street)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.AppartNr)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.AppartNr)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.FlatNr)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.FlatNr)
+            </dd>
+        </dl>
+    </div>
+    <div>
+        <a asp-action="Edit" asp-route-id="@Model.IdT">Edytuj</a> |
+        <a asp-action="Index">Powrót do listy</a>
+    </div>
+</div>

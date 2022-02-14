@@ -1,0 +1,54 @@
+﻿@model IEnumerable<GOT.Models.SpisTrasPunktowanych>
+
+@{
+    ViewData["Title"] = "Spis tras punktowanych";
+}
+
+
+<div class="table-wrapper">
+    <h1>Spis tras punktowanych</h1>
+
+    <p>
+        <a class="btn btn-success" asp-controller="OdcinekTrasy" asp-action="Create">Dodaj</a>
+    </p>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    Szlak
+                </th>
+                <th>
+                    Z
+                </th>
+                <th>
+                    Do
+                </th>
+                <th>
+                    Punkty
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Track.Trail)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Track.PointStart.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Track.PointEnd.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Track.Points)
+                    </td>
+                    <td class="table--align-right">
+                        <a asp-action="Details" asp-route-id="@item.IdS">Szczegóły</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

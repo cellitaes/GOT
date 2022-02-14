@@ -1,0 +1,193 @@
+﻿@model GOT.Models.Turysta
+
+
+@{
+    bool? isLeader = false;
+    string perm = "";
+    ViewData["Title"] = "Edycja";
+    isLeader = (bool?)ViewData["isLeader"];
+    if (isLeader.HasValue && isLeader.Value)
+    {
+        perm = (string)ViewData["selectedPermissions"];
+    }
+
+}
+<div class="table-wrapper">
+    <h1>Edycja</h1>
+
+    <h4>Turysta</h4>
+    <hr />
+    <div class="row">
+        <form asp-action="Edit" class="col-md-12" onsubmit="onSubmit(event)">
+            <div class="row">
+                <div class="col-md-6">
+
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <input type="hidden" asp-for="IdT" />
+
+                    @*<input asp-for="Login" class="form-control" style="display:none" />
+
+                        <input asp-for="Password" class="form-control" style="display:none" />*@
+                    <div class="form-group">
+                        <input asp-for="Login" type="hidden" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <input asp-for="Password" type="hidden" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Name" class="control-label"></label>
+                        <input asp-for="Name" class="form-control" />
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Surname" class="control-label"></label>
+                        <input asp-for="Surname" class="form-control" />
+                        <span asp-validation-for="Surname" class="text-danger"></span>
+                    </div>
+                    @if (isLeader.HasValue && isLeader.Value)
+                    {
+                        <div class="form-group">
+                            <label class="control-label">Numer Legitymacji</label>
+                            <input disabled value="@ViewData["IdNumber"]" class="form-control" />
+                            <span class="text-danger"></span>
+                        </div>
+                    }
+                    <div class="form-group">
+                        <label asp-for="PostCode" class="control-label"></label>
+                        <input asp-for="PostCode" class="form-control" />
+                        <span asp-validation-for="PostCode" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="City" class="control-label"></label>
+                        <input asp-for="City" class="form-control" />
+                        <span asp-validation-for="City" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Street" class="control-label"></label>
+                        <input asp-for="Street" class="form-control" />
+                        <span asp-validation-for="Street" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="AppartNr" class="control-label"></label>
+                        <input asp-for="AppartNr" class="form-control" />
+                        <span asp-validation-for="AppartNr" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="FlatNr" class="control-label"></label>
+                        <input asp-for="FlatNr" class="form-control" />
+                        <span asp-validation-for="FlatNr" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="Zapisz" class="btn btn-primary" />
+                    </div>
+
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label @*asp-for="" *@ class="control-label">Uprawnienia</label>
+                        <select name="Uprawnienia" id="Uprawnienia" onclick="displayInfo(event.target)">
+                            <option value="Turysta">Turysta</option>
+                            <option selected=@isLeader value="Przodownik">Przodownik</option>
+                            <option value="KTG ZG PTTK">KTG ZG PTTK</option>
+                            <option value="Admin">Admin</option>
+                        </select>
+                    </div>
+                    <div class="form-group onlyForPrzodownik" style="display:none">
+                        <div class="form-group">
+                            <label class="control-label">
+                                Tatry
+                                <input type="checkbox" class="form-check-inline" id="Tatry" value="Tatry" name="mountRange" />
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">
+                                Beskidy Zachodnie
+                                <input type="checkbox" class="form-check-inline" id="Beskidy Zachodnie" value="Beskidy Zachodnie" name="mountRange" />
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">
+                                Beskidy Wschodnie
+                                <input type="checkbox" class="form-check-inline" id="Beskidy Wschodnie" value="Beskidy Wschodnie" name="mountRange" />
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">
+                                Góry Świętokrzyskie
+                                <input type="checkbox" class="form-check-inline" id="Góry Świętokrzyskie" value="Góry Świętokrzyskie" name="mountRange" />
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">
+                                Sudety
+                                <input type="checkbox" class="form-check-inline" id="Sudety" value="Sudety" name="mountRange" />
+                            </label>
+                        </div>
+                        <span id="monutRangesValidation" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <div class="table-wrapper--font-size">
+        <a asp-action="Index">Powrót do listy</a>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+
+    <script>
+    const przodownikSection = document.querySelector(".onlyForPrzodownik");
+    const permission = document.querySelector("#Uprawnienia");
+    const checkboxes = document.querySelectorAll(".form-check-inline");
+
+    var displayInfo = function (target) {
+        if (target.value == "Przodownik") {
+            przodownikSection.style.display = "block";
+        } else {
+            przodownikSection.style.display = "none";
+            if ('@Html.Raw(isLeader)' == "False") checkboxes.forEach(check => check.checked = false)
+        }
+     }
+
+    $(document).ready(function () {
+        $(".form-check-inline").click(function (event) {
+            $(event.target).attr("checked", !$(event.target).attr("checked"));
+        });
+    });
+
+    displayInfo(permission)
+
+    const mountRanges = '@Html.Raw(perm)'.split(",");
+
+    for (let i = 0; i < checkboxes.length; i++) {
+        if (mountRanges.includes(checkboxes[i].getAttribute("id"))) {
+            checkboxes[i].setAttribute("checked", "");
+        }
+    }
+
+    var onSubmit = function (event) {
+        let counter = 0;
+
+        for (let i = 0; i < checkboxes.length; i++) {
+            if (checkboxes[i].getAttribute("checked") != null) {
+                counter++;
+            }
+        }
+
+
+        if (counter == 0 && permission.value == "Przodownik") {
+            event.preventDefault();
+            $("#monutRangesValidation").text("Trzeba wybrać conajmniej jeden teren górski!");
+        }
+
+        console.log(counter);
+    }
+
+
+    </script>
+
+}

@@ -1,0 +1,55 @@
+﻿@model GOT.Models.OdcinekTrasy
+
+@{
+    ViewData["Title"] = "Szczegóły";
+}
+<div class="table-wrapper">
+    <h1>Szczegóły</h1>
+
+    <div>
+        <h4>Odcinek Trasy</h4>
+        <hr />
+        <dl class="row">
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Trail)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Trail)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Length)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Length)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.HeightDiff)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.HeightDiff)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Points)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Points)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.PointStart)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.PointStart.Name)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.PointEnd)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.PointEnd.Name)
+            </dd>
+        </dl>
+    </div>
+    <div class="table-wrapper__options">
+        <a asp-action="Edit" asp-route-id="@Model.IdO">Edytuj</a> |
+        <a asp-action="Index">Powrót do listy</a>
+    </div>
+</div>

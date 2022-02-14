@@ -1,0 +1,103 @@
+﻿@model IEnumerable<GOT.Models.Punkt>
+@using Microsoft.AspNetCore.Http
+
+@{
+    ViewData["Title"] = "Index";
+    var nazwaŁancucha = Context.Session.GetString("lancuch");
+    var nazwaWycieczki = Context.Session.GetString("nazwa");
+    var isAuto = Context.Session.GetString("isAuto");
+
+}
+
+
+
+<div class="table-wrapper flex-table">
+    @if (isAuto == "auto")
+    {
+        <h1 class="text-primary pb-5" style="font-size: 30px">Budowanie automatycznej trasy wycieczki</h1>
+    }
+    else
+    {
+        <h1 class="text-primary pb-5" style="font-size: 30px">Budowanie trasy wycieczki</h1>
+    }
+
+
+    <div class="basis-100">
+        <i class="las la-arrow-circle-left" data-toggle="modal" data-target="#exampleModal"></i>
+    </div>
+    <p class="basis-100 basis-50">Nazwa wycieczki: @nazwaWycieczki</p>
+    <p class="basis-100 basis-50">Łańcuch górski: @nazwaŁancucha</p>
+
+
+
+
+    <table class="table add-table">
+        <thead>
+            <tr>
+                <th>
+                    Nazwa punktu
+                </th>
+                <th>
+                    Wysokość
+                </th>
+
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Height)
+                    </td>
+                    <td>
+                        <a asp-action="NextPoint" asp-route-id="@item.IdP" class="add--button">+</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+</div>
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Opuszczenie Budowania Trasy Wycieczki</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Czy na pewno chcesz opuścić trasę wycieczki
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Zamknij</button>
+                <a asp-action="Index">
+                    <button type="button" class="btn btn-success">Zatwierdź </button>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+@section Scripts {
+
+
+    <script>
+        $('#myModal').on('shown.bs.modal', function () {
+            $('#myInput').trigger('focus')
+        })
+
+    </script>
+
+}

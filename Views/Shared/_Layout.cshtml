@@ -1,0 +1,116 @@
+﻿@{
+    string val = "logout";
+
+    if (Context.Request.Cookies["isLogged"] != null)
+    {
+        val = Context.Request.Cookies["isLogged"].ToString();
+    }
+
+}
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - GOT</title>
+    <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@@fortawesome/fontawesome-free@5.15.4/css/fontawesome.min.css">
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <div class="container">
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">GOT</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav flex-grow-1">
+                        <li class="nav-item">
+                            <a class="nav-link " href="http://ktg.hg.pl/komisja-tg/got/regulamin_got.html" target="_blank">Regulamin GOT</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link " href="http://ktg.hg.pl/komisja-tg/komisja.html" target="_blank">Zarząd KG PTTK</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link " href="http://ktg.hg.pl/komisja-tg/tatry6/6wyprawa.html" target="_blank">Turystyka</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link " href="http://ktg.hg.pl/komisja-tg/infoktg.html" target="_blank">Ogłoszenia</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link " href="http://ktg.hg.pl/komisja-tg/przodgor.html" target="_blank">Przodownicy</a>
+                        </li>
+                        @if (val == "logged")
+                        {
+
+                            <div class="dropdown">
+                                <p>imie nazwisko</p>
+                                <img class="img--inline" src="/images/twarz.jpg" alt="Alternate Text" />
+                                @*<button class="dropbtn"></button>*@
+                                <div class="dropdown-content">
+                                    <a class="nav-link" href="#">Legitymacja GOT</a>
+                                    <a class="nav-link" asp-area="" asp-controller="Wycieczka" asp-action="Index">Budowanie trasy wycieczki</a>
+                                    <a class="nav-link" asp-controller="Wycieczka" asp-action="Index" asp-route-auto="auto">Budowanie zautomatyzowanej trasy wycieczki</a>
+                                    <a class="nav-link" href="#">Wyszukaj punkt</a>
+                                    <a class="nav-link" asp-area="" asp-controller="Home" asp-action="AdminPanel">Panel Administratora</a>
+                                    <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Logout">Wyloguj się</a>
+                                </div>
+                            </div>
+                        }
+                        else if (val == "logout")
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link " asp-area="" asp-controller="Home" asp-action="LogIn">Zaloguj się</a>
+                            </li>
+                        }
+                        @*else
+                            {
+                            <li class="nav-item">
+                                <a class="nav-link " asp-area="" asp-controller="Home" asp-action="LogIn">Zaloguj się</a>
+                            </li>
+                            }*@
+
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2021 - GOT
+            <a class="footer__list-item" href="#">Zgłoś problem</a>
+            <a class="footer__list-item" href="#">O aplikacji</a>
+            <a class="footer__list-item" href="https://www.facebook.com/PolskieTowarzystwoTurystycznoKrajoznawcze">
+                <img src="https://img.icons8.com/ios-glyphs/30/000000/facebook-new.png" />
+                Facebook
+            </a>
+            <a class="footer__list-item" href="https://twitter.com/but_pttk">
+                <img src="https://img.icons8.com/ios-glyphs/30/000000/twitter--v1.png" />
+                Twitter
+            </a>
+            <a class="footer__list-item" href="https://www.instagram.com/pttk.pl/">
+                <img src="https://img.icons8.com/material-outlined/24/000000/instagram-new--v1.png" />
+                Instagram
+            </a>
+        </div>
+
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

@@ -1,0 +1,44 @@
+﻿@model IEnumerable<GOT.Models.Wycieczka>
+@using Microsoft.AspNetCore.Http
+
+@{
+    ViewData["Title"] = "Index";
+    var isAuto = Context.Session.GetString("isAuto");
+}
+
+
+
+<div class="table-wrapper">
+    @if (isAuto == "auto")
+    {
+        <h1 class="text-primary pb-5" style="font-size: 30px">Budowanie automatycznej trasy wycieczki</h1>
+    }
+    else
+    {
+        <h1 class="text-primary pb-5" style="font-size: 30px">Budowanie trasy wycieczki</h1>
+    }
+
+
+<form method="GET" asp-action="Build" class="form-center" asp-route-auto="@isAuto">
+    <div class="row">
+        <label class="col-auto">
+            Nazwa wycieczki
+            <input type="text" name="nazwaWycieczki" placeholder="Nazwij..." data-val="true"
+                   data-val-required="Nazwa wycieczki jest wymagana!" id="nazwaWycieczki" />
+        </label>
+
+    </div>
+    @Html.ValidationMessage("nazwaWycieczki", "", new { @class = "text-danger" })
+    <div class="row">
+        <label name="lancuchy" class="control-label col-auto padding">
+            Łańuch górski <select name="lancuchy" asp-items="ViewBag.lancuchy"></select>
+        </label>
+    </div>
+
+    <button class="btn btn-success aligin-right" type="submit">Zatwierdź</button>
+</form>
+
+</div>
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

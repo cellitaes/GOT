@@ -1,0 +1,87 @@
+﻿@model GOT.Models.OdcinekTrasy
+
+@{
+    ViewData["Title"] = "Create";
+}
+<div class="table-wrapper">
+    <h1>Tworzenie</h1>
+
+    <h4>Odcinek Trasy</h4>
+    <hr />
+    <div class="row">
+        <div class="col-md-4">
+            <form enctype="multipart/form-data" asp-action="Create">
+                @Html.ValidationMessage("Duplicate", "", new { @class = "text-danger" })
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label class="control-label">Dwukierunkowy:</label>
+                    <input type="checkbox" name="twoWay" value="true" class="form-check-inline" onclick="show('revPoints')" />
+                </div>
+                <div class="form-group">
+                    <label asp-for="Trail" class="control-label">Szlak</label>
+                    <select asp-for="Trail" class="form-control" asp-items="ViewBag.Trails"></select>
+                    <span asp-validation-for="Trail" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Length" class="control-label">Długość</label>
+                    <input asp-for="Length" class="form-control" />
+                    <span asp-validation-for="Length" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="HeightDiff" class="control-label">Różnica wysokości</label>
+                    <input asp-for="HeightDiff" class="form-control" />
+                    <span asp-validation-for="HeightDiff" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Points" class="control-label">Punkty</label>
+                    <input asp-for="Points" class="form-control" />
+                    <span asp-validation-for="Points" class="text-danger"></span>
+                </div>
+                <div id="revPoints" class="form-group" style="display:none">
+                    <label class="control-label">Punkty przy zejściu</label>
+                    <input class="form-control" type="number" data-val="true" data-val-range="Punkty za odcinek muszą być z przedziału 1-30!"
+                           data-val-range-max="30" data-val-range-min="1" data-val-required="Wymagane jest podanie punktów za odcinek!" id="reversePoints" name="reversePoints" disabled />
+                    @Html.ValidationMessage("reversePoints", "", new { @class = "text-danger" })
+                </div>
+                <div class="form-group">
+                    <label asp-for="PointStartId" class="control-label">Punkt startowy</label>
+                    <select asp-for="PointStartId" class="form-control" asp-items="ViewBag.PointId"></select>
+                </div>
+                <div class="form-group">
+                    <label asp-for="PointEndId" class="control-label">Punkt końcowy</label>
+                    <select asp-for="PointEndId" class="form-control" asp-items="ViewBag.PointId"></select>
+                    @Html.ValidationMessageFor(model => model.PointEndId, "", new { @class = "text-danger" })
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Stwórz" class="btn btn btn-success" />
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="table-wrapper--font-size">
+        <a asp-controller="SpisTrasPunktowanych" asp-action="Index">Powrót do listy</a>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+<script>
+    function show(box) {
+
+        var checkbox = document.getElementsByName("twoWay")[0];
+        var reversePoints = document.getElementById("reversePoints");
+        var display = "none";
+        var disabled = true;
+
+        if (checkbox.checked) {
+            display = "inline-block";
+            disabled = false;
+        }
+            
+
+        document.getElementById(box).style.display = display;
+        reversePoints.disabled = disabled;
+    }
+</script>
+}

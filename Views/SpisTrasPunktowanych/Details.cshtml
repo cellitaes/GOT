@@ -1,0 +1,60 @@
+﻿@model GOT.Models.SpisTrasPunktowanych
+
+@{
+    ViewData["Title"] = "Details";
+}
+<div class="table-wrapper">
+    <h1>Szczegóły</h1>
+
+    <div class="table-wrapper--width">
+        <h4>Spis Tras Punktowanych</h4>
+        <hr />
+        <dl class="row">
+            <dt class="col-3">
+                Ważny od:
+            </dt>
+            <dd class="col-9">
+                @Html.DisplayFor(model => model.ValidFrom)
+            </dd>
+            <dt class="col-3">
+                Szlak:
+            </dt>
+            <dd class="col-9">
+                @Html.DisplayFor(model => model.Track.Trail)
+            </dd>
+            <dt class="col-3">
+                Długość:
+            </dt>
+            <dd class="col-9">
+                @Html.DisplayFor(model => model.Track.Length)
+            </dd>
+            <dt class="col-3">
+                Różnica wysokości:
+            </dt>
+            <dd class="col-9">
+                @Html.DisplayFor(model => model.Track.HeightDiff)
+            </dd>
+            <dt class="col-3">
+                Punkty:
+            </dt>
+            <dd class="col-9">
+                @Html.DisplayFor(model => model.Track.Points)
+            </dd>
+            <dt class="col-3">
+                Punkt początkowy:
+            </dt>
+            <dd class="col-9">
+                @Html.DisplayFor(model => model.Track.PointStart.Name)
+            </dd>
+            <dt class="col-3">
+                Punkt końcowy:
+            </dt>
+            <dd class="col-9">
+                @Html.DisplayFor(model => model.Track.PointEnd.Name)
+            </dd>
+        </dl>
+    </div>
+    <div class="table-wrapper__options">
+        <a asp-action="Index">Powrót do listy</a>
+    </div>
+</div>

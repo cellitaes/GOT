@@ -1,0 +1,71 @@
+﻿@model IEnumerable<GOT.Models.OdcinekTrasy>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+
+<div class="table-wrapper">
+    <h1>Odcinek Trasy</h1>
+    <p>
+        <a class="btn btn-success" asp-controller="OdcinekTrasy" asp-action="Create">Dodaj</a>
+    </p>
+    @*<p>
+            <a asp-action="Create">Stwórz nowy</a>
+        </p>*@
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Trail)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Length)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.HeightDiff)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Points)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.PointStart)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.PointEnd)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Trail)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Length)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.HeightDiff)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Points)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PointStart.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PointEnd.Name)
+                    </td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.IdO">Edycja</a> |
+                        <a asp-action="Details" asp-route-id="@item.IdO">Szczegóły</a> |
+                        <a asp-action="Delete" asp-route-id="@item.IdO">Usuń</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
