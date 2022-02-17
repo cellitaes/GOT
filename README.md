@@ -4,7 +4,7 @@ Home page with menu for navigation <br />
 <img src="https://github.com/cellitaes/GOT/blob/master/Screenshots/Screenshot1.png" width="632" height="307" />
 <br />
 
-Panel for building a trip in a specific mountain range "Płyty" <br />
+Panel for building a trip in a specific mountain range "Tatry" <br />
 <img src="https://github.com/cellitaes/GOT/blob/master/Screenshots/Screenshot2.png"  width="632" height="307" />
 <br />
 
